@@ -1,37 +1,27 @@
 
 
-; B -X1, C- X2, D - X3, E - X4
+; (x3-x2) -> B
+LDA x2
+MOV B, A
+LDA x3
+SUB B
+MOV B, A
 
-LXI H, X1
-MOV B, M
-INX H
-MOV C, M
-INX H
-MOV D, M
-INX H
-MOV E, M
-INX H
+; (x1+x4)
+LDA x1
+MOV C,A
+LDA x4
+ADD C
+MOV C, A
 
-;   (X2+X1-X4)
-MOV A, C
-ADD B
-SUB E
-MOV C, A   ; (X2+X1-X4) -> C
-
-; X3-C
-MOV A, D
-SUB C
-
-MOV M, A
+; B+C
+MOV A,B
+ADD C
+STA r
 HLT
 
-X1:
-   DB 3
-X2:
-   DB 12
-X3:
-   DB 17
-X4:
-   DB 3
-Y:
-   DB 0
+x1:   DB 1
+x2:   DB 2
+x3:   DB 3
+x4:   DB 5
+r:   DB 0
